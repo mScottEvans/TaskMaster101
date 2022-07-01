@@ -3,8 +3,6 @@ package com.zork.class27demo.activities;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Room;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -14,18 +12,21 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.amplifyframework.api.graphql.model.ModelMutation;
+import com.amplifyframework.core.Amplify;
+import com.amplifyframework.datastore.generated.model.Task;
 import com.zork.class27demo.R;
 import com.zork.class27demo.adapter.ProductListRecyclerViewAdapter;
-import com.zork.class27demo.database.TaskMasterDatabase;
 import com.zork.class27demo.models.Product;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
+    public static final String TAG = "homeActivity";
     public static final String PRODUCT_NAME_EXTRA_TAG = "productName";
     SharedPreferences preferences;
-    TaskMasterDatabase taskMasterDatabase;
+
     public static final String DATABASE_NAME = "zork_task_master"; // needs to be the same everywhere in our app!
     ProductListRecyclerViewAdapter adapter;
     List<Product> products = null;
@@ -37,17 +38,17 @@ public class HomeActivity extends AppCompatActivity {
 
         // Initialize shared pref
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
-
-        // database builder
-        taskMasterDatabase = Room.databaseBuilder(
-                getApplicationContext(), //  so that we only have a single database across the whole app
-                TaskMasterDatabase.class,
-                DATABASE_NAME)
-                .allowMainThreadQueries()  // Don't do this in a real app!
-                .fallbackToDestructiveMigration() // If Room gets confused, it tosses your database; don't use this in production!
+        Task newBask = Task.builder()
+                .title("Test Title")
+                .body("This is a test boddy")
+                .status("Complete")
                 .build();
+        Amplify.API.mutate(
+                ModelMutation.create(newBask), // making a GraphQL request to the cloud
+                successResponse -> Log.i(TAG, "ProductListActivity.onCreate(): made a product successfully"), // success callback
+                failureResponse -> Log.i(TAG, "ProductListActivity.onCreate(): failed with this response: " + failureResponse) // failure callback
+        );
 
-        products = taskMasterDatabase.productDao().findAll();
 
         setUpSettingsImageView();
         setUpOrderButton();
@@ -64,7 +65,7 @@ public class HomeActivity extends AppCompatActivity {
         userNicknameText.setText(userNickname);
 
         products.clear();
-        products.addAll(taskMasterDatabase.productDao().findAll());
+
         adapter.notifyDataSetChanged();
     }
 

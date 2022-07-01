@@ -1,0 +1,6 @@
+{
+  "AppSyncApiName": "demo",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthModeLastUpdated": "2022-07-01T00:06:29.849Z"
+}

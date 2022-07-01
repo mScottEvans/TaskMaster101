@@ -1,16 +1,15 @@
 package com.zork.class27demo.models;
 
 import androidx.annotation.NonNull;
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
+
 
 import java.util.Date;
 
 // TODO: Step 2-1: Make a data class
-@Entity
+
 public class Product {
 
-    @PrimaryKey(autoGenerate = true)
+
     public Long id;
     String name;
     String description;

@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "serviceConfiguration": {
+    "apiName": "demo",
+    "serviceName": "AppSync",
+    "gqlSchemaPath": "/home/scott/code401/android/demo/amplify/backend/api/demo/schema.graphql",
+    "defaultAuthType": {
+      "mode": "AWS_IAM"
+    },
+    "conflictResolution": {},
+    "additionalAuthTypes": []
+  }
+}

@@ -1,11 +1,9 @@
 package com.zork.class27demo.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.zork.class27demo.R;
-import com.zork.class27demo.database.TaskMasterDatabase;
+
 import com.zork.class27demo.models.Product;
 
 import android.content.Intent;
@@ -20,7 +18,7 @@ import java.util.Date;
 
 public class AddProductActivity extends AppCompatActivity {
 
-    TaskMasterDatabase taskMasterDatabase;
+
     public static final String DATABASE_NAME = "zork_task_master"; // needs to be the same everywhere in our app!
 
     @Override
@@ -28,16 +26,9 @@ public class AddProductActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_product);
 
-        taskMasterDatabase = Room.databaseBuilder(
-                getApplicationContext(), //  so that we only have a single database across the whole app
-                TaskMasterDatabase.class,
-                DATABASE_NAME)
-                .allowMainThreadQueries()  // Don't do this in a real app!
-                .fallbackToDestructiveMigration() // If Room gets confused, it tosses your database; don't use this in production!
-                .build();
 
         setUpSpinner();
-        setUpSaveButton(taskMasterDatabase);
+        setUpSaveButton();
 
     }
 
@@ -50,7 +41,7 @@ public class AddProductActivity extends AppCompatActivity {
                 Product.ProductCategoryEnum.values()));
     }
 
-    private void setUpSaveButton(TaskMasterDatabase database){
+    private void setUpSaveButton(){
         Spinner productCategorySpinner = findViewById(R.id.addAProductCategoryInput);
         Button saveNewProductButton = findViewById(R.id.addAProductSaveButton);
         saveNewProductButton.setOnClickListener(new View.OnClickListener() {
@@ -63,7 +54,7 @@ public class AddProductActivity extends AppCompatActivity {
 
                 Product newProduct = new Product(productName, productDescription, newDate, productCategory);
 
-                database.productDao().insertAProduct(newProduct);
+//                database.productDao().insertAProduct(newProduct);
                 Intent goToHomeActivity = new Intent(AddProductActivity.this, HomeActivity.class);
                 startActivity(goToHomeActivity);
 
