@@ -17,7 +17,7 @@ import com.amplifyframework.core.Amplify;
 import com.amplifyframework.datastore.generated.model.Task;
 import com.zork.class27demo.R;
 import com.zork.class27demo.adapter.ProductListRecyclerViewAdapter;
-import com.zork.class27demo.models.Product;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +29,7 @@ public class HomeActivity extends AppCompatActivity {
 
     public static final String DATABASE_NAME = "zork_task_master"; // needs to be the same everywhere in our app!
     ProductListRecyclerViewAdapter adapter;
-    List<Product> products = null;
+    List<Task> tasks = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +49,7 @@ public class HomeActivity extends AppCompatActivity {
                 failureResponse -> Log.i(TAG, "ProductListActivity.onCreate(): failed with this response: " + failureResponse) // failure callback
         );
 
+        tasks = new ArrayList<>();
 
         setUpSettingsImageView();
         setUpOrderButton();
@@ -64,7 +65,7 @@ public class HomeActivity extends AppCompatActivity {
         TextView userNicknameText = findViewById(R.id.homeNickname);
         userNicknameText.setText(userNickname);
 
-        products.clear();
+//        products.clear();
 
         adapter.notifyDataSetChanged();
     }
@@ -99,20 +100,12 @@ public class HomeActivity extends AppCompatActivity {
         productListRecyclerView.setLayoutManager(layoutManager);
 
         // TODO: Step 2-2: Make some data items
-//        List<Product> products = new ArrayList<>();
-
-//        products.add(new Product("Pens"));
-//        products.add(new Product("Pencils"));
-//        products.add(new Product("Binders"));
-//        products.add(new Product("Paperclips"));
-//        products.add(new Product("Paper"));
-//        products.add(new Product("Monitors"));
-//        products.add(new Product("Flash Drives"));
+//
 
         // TODO: Step 1-5: Create and attach the RecyclerView.Adapter
         // TODO: Step 2-3: Hand in data items(products array)
         // TODO: Step: 3-2 Give context to our adapter
-        adapter = new ProductListRecyclerViewAdapter(products, this);
+        adapter = new ProductListRecyclerViewAdapter(tasks, this);
         // TODO Step: 1-5: set the adapter recyclerview
         productListRecyclerView.setAdapter(adapter);
 

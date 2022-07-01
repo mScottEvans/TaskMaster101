@@ -8,9 +8,11 @@ type Todo @model {
   description: String
 }
 
-type Task @model {
+type Task @model @auth(rules: [{allow: public}]){
     id: ID!
     title: String!
     body: String
     status: String
 }
+
+

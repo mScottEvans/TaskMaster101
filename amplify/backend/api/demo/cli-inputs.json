@@ -5,7 +5,10 @@
     "serviceName": "AppSync",
     "gqlSchemaPath": "/home/scott/code401/android/demo/amplify/backend/api/demo/schema.graphql",
     "defaultAuthType": {
-      "mode": "AWS_IAM"
+      "mode": "API_KEY",
+      "expirationTime": 20,
+      "apiKeyExpirationDate": "2022-07-21T22:29:17.992Z",
+      "keyDescription": "TaskMaster"
     },
     "conflictResolution": {},
     "additionalAuthTypes": []

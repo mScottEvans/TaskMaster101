@@ -7,7 +7,12 @@
       "output": {
         "authConfig": {
           "defaultAuthentication": {
-            "authenticationType": "AWS_IAM"
+            "authenticationType": "API_KEY",
+            "apiKeyConfig": {
+              "apiKeyExpirationDays": 20,
+              "apiKeyExpirationDate": "2022-07-21T22:29:17.992Z",
+              "description": "TaskMaster"
+            }
           },
           "additionalAuthenticationProviders": []
         }
